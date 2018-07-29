@@ -8,7 +8,7 @@ export function requiresPermissions(permissions: PermissionResolvable[]) {
 
         descriptor.value = (msg: Message, ...args: any[]) => {
             if (msg.member.hasPermission(permissions)) commandRun(msg, ...args)
-            else throw new CommandError("Insufficient roles.", target, msg)
+            else throw new CommandError("Insufficient permissions.", target, msg)
         }
     }
 }
