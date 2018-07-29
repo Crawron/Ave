@@ -6,6 +6,8 @@
         "outDir": "./dist/",
         "strict": true,
         "sourceMap": true,
-        "noImplicitAny": true
+        "noImplicitAny": true,
+        "experimentalDecorators": true,
+        "skipLibCheck": true
     }
 }
