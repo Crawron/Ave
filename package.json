@@ -1,0 +1,18 @@
+{
+    "name": "ave",
+    "version": "1.0.0",
+    "description": "Discord bot library using discord.js. Inspired by Commando.",
+    "main": "dist/main.js",
+    "author": "Crawron",
+    "license": "MIT",
+    "scripts": {
+        "debug": "ts-node src/main.ts"
+    },
+    "dependencies": {
+        "discord.js": "^11.3.2"
+    },
+    "devDependencies": {
+        "ts-node": "^7.0.0",
+        "typescript": "^2.9.2"
+    }
+}
