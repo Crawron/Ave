@@ -1,5 +1,5 @@
 import { Message, PermissionResolvable, User, RoleResolvable, Role, GuildMember } from "discord.js"
-import { CommandError } from "../Class/CommandError"
+import { CommandError } from "../Classes/CommandError"
 import { hasAllRoles } from "../Helpers/hasAllRoles"
 
 export function requiresPermissions(permissions: PermissionResolvable[]) {
