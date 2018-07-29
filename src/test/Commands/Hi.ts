@@ -12,7 +12,7 @@ export default class extends Command {
     }
 
     @requiresRoles([serverAdminRoleId])
-    async run(msg: Message, user: User) {
-        return msg.channel.send(`Hello, ${user}!`)
+    async run(msg: Message) {
+        return msg.channel.send(`Hello, ${msg.author}!`)
     }
 }
