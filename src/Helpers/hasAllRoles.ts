@@ -1,6 +1,6 @@
 import { GuildMember, RoleResolvable, Role } from "discord.js"
 
-function hasAllRoles(member: GuildMember, roles: RoleResolvable[]) {
+export function hasAllRoles(member: GuildMember, roles: RoleResolvable[]) {
     let response = true
     roles.forEach((role) => {
         const isId = typeof role === "string"
