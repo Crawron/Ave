@@ -9,5 +9,6 @@
         "noImplicitAny": true,
         "experimentalDecorators": true,
         "skipLibCheck": true
-    }
+    },
+    "exclude": ["./src/test"]
 }
