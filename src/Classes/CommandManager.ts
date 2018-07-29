@@ -17,22 +17,21 @@ export class CommandManager {
         this.shouldHandleMessage = this.shouldHandleMessage.bind(this)
     }
 
+    /** Handles an incoming message and runs a command if found. */
     handleMessage(msg: Message) {
         if (!this.shouldHandleMessage(msg)) return
-        const commandName = msg.content.replace(this.prefix, "").split(" ")[0]
 
-        const command = this.storage.findCommand(commandName)
+        const command = this.getCommandFromMessage(msg)
         if (command) {
             try {
                 command.run(msg)
             } catch (e) {
-                if (e instanceof CommandError) {
-                    msg.channel.send(e.message)
-                }
+                if (e instanceof CommandError) msg.channel.send(e.message)
             }
         }
     }
 
+    /** Determines if a message should be handled. */
     shouldHandleMessage(msg: Message) {
         if (msg.author.bot) return false
 
@@ -40,6 +39,12 @@ export class CommandManager {
 
         const mentionsBot = msg.mentions.users.has(this.client.user.id)
         if (mentionsBot && this.respondMentions) return true
+    }
+
+    /** Finds which command should be run from a message. */
+    getCommandFromMessage(msg: Message) {
+        const commandName = msg.content.replace(this.prefix, "").split(" ")[0]
+        return this.storage.findCommand(commandName)
     }
 }
 
