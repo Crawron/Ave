@@ -13,10 +13,11 @@ client.on("message", (msg) => {
         } catch (e) {
             if (e instanceof CommandError) {
                 msg.channel.send(e.message)
-                msg.channel.send("```" + e.command.name + "```")
+                msg.channel.send("```js\n" + e.command.name + "```")
             }
         }
     }
 })
 
-client.login()
+const { token } = require(__dirname + "/token.json")
+client.login(token)
