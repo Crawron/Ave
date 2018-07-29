@@ -6,7 +6,7 @@
     "author": "Crawron",
     "license": "MIT",
     "scripts": {
-        "debug": "ts-node src/main.ts"
+        "test": "ts-node src/test/bot.ts"
     },
     "dependencies": {
         "discord.js": "^11.3.2"
