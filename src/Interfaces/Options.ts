@@ -4,3 +4,8 @@ export interface CommandOptions {
     examples?: string[]
     syntax?: string
 }
+
+export interface CommandManagerOptions {
+    prefix?: string
+    respondMentions?: boolean
+}
