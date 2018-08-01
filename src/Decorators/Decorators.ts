@@ -1,4 +1,4 @@
-import { Message, PermissionResolvable, User, RoleResolvable, Role, GuildMember } from "discord.js"
+import { Message, PermissionResolvable, RoleResolvable } from "discord.js"
 import { CommandError } from "../Classes/CommandError"
 import { hasAllRoles } from "../Helpers/hasAllRoles"
 
