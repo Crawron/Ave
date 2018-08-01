@@ -2,6 +2,9 @@ import { Message, Client } from "discord.js"
 import { CommandOptions } from "../Interfaces/Options"
 import { CommandArguments } from "./CommandArguments"
 
+/**
+ * Abstract Command class to extend from when making a command.
+ */
 export abstract class Command {
     name: string
     description: string

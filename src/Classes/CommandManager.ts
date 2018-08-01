@@ -20,7 +20,10 @@ export class CommandManager {
         this.client.on("message", this.handleMessage)
     }
 
-    /** Handles an incoming message and runs a command if found. */
+    /**
+     * Handles an incoming message and runs a command if found.
+     * @param {Message} msg Message to handle.
+     */
     @bind
     async handleMessage(msg: Message) {
         if (!this.shouldHandleMessage(msg)) return
@@ -37,7 +40,10 @@ export class CommandManager {
         }
     }
 
-    /** Determines if a message should be handled. */
+    /**
+     * Determines if a message should be handled.
+     * @param {Message} msg Message to handle.
+     */
     shouldHandleMessage(msg: Message) {
         if (msg.author.bot) return false
 
@@ -47,12 +53,22 @@ export class CommandManager {
         if (mentionsBot && this.respondMentions) return true
     }
 
-    /** Finds which command should be run from a message. */
+    /**
+     * Finds which command should be run from a message.
+     * @param {Message}msg Message calling a command.
+     * @returns {(Command|undefined)} Command object if found, undefined otherwise.
+     */
     getCommandFromMessage(msg: Message) {
         const commandName = msg.content.replace(this.prefix, "").split(" ")[0]
         return this.storage.findCommand(commandName)
     }
 
+    /**
+     * Parses all arguments from a message calling a command.
+     * @param msg Message to parse command arguments from.
+     * @param command The Command these arguments are for.
+     * @returns {CommandArguments} Parsed arguments.
+     */
     async parseArguments(msg: Message, command: Command): Promise<CommandArguments> {
         const args = new CommandArguments()
 
