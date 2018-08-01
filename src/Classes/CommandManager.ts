@@ -4,6 +4,7 @@ import { CommandStorage } from "./CommandStorage"
 import { CommandError } from "./CommandError"
 import { CommandArguments } from "./CommandArguments"
 import { CommandManagerOptions } from "../Interfaces/Options"
+import { bind } from "decko"
 
 export class CommandManager {
     storage: CommandStorage
@@ -16,13 +17,11 @@ export class CommandManager {
         this.prefix = options.prefix || "."
         this.respondMentions = options.respondMentions || true
 
-        this.handleMessage = this.handleMessage.bind(this)
-        this.shouldHandleMessage = this.shouldHandleMessage.bind(this)
-
         this.client.on("message", this.handleMessage)
     }
 
     /** Handles an incoming message and runs a command if found. */
+    @bind
     async handleMessage(msg: Message) {
         if (!this.shouldHandleMessage(msg)) return
 
@@ -55,11 +54,10 @@ export class CommandManager {
     }
 
     async parseArguments(msg: Message, command: Command): Promise<CommandArguments> {
-        const argumentsString = msg.content.replace(this.prefix + command.name, "").replace(/^<@${this.client.user.id}>/, "")
-
         const args = new CommandArguments()
 
-        const regexp = /<(?:@&?|#)\d+>|(\d+(?:[.,]\d+)?)|"([^"]*)"|(\S+)/g
+        const regexp = /(?:@everyone)|<(?:@&?|#)\d+>|(\d+(?:[.,]\d+)?)|"([^"]*)"|(\S+)/g
+        const argumentsString = msg.content.replace(this.prefix + command.name, "").replace(/^<@${this.client.user.id}>/, "")
 
         let match: RegExpExecArray | null
         while ((match = regexp.exec(argumentsString))) {
@@ -70,8 +68,8 @@ export class CommandManager {
                 else args.addArgument(numberArg)
             }
 
-            const quotedString = match[2]
-            if (quotedString) args.addArgument(quotedString)
+            const quotedStringArg = match[2]
+            if (quotedStringArg) args.addArgument(quotedStringArg)
 
             const stringArg = match[3]
             if (stringArg) args.addArgument(stringArg)
