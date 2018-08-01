@@ -1,12 +1,10 @@
 import { GuildMember, Role, User, TextChannel } from "discord.js"
+import { bind } from "decko"
 
 export class CommandArguments {
     args = new Array<ArgumentType>()
 
-    constructor() {
-        this.addArgument = this.addArgument.bind(this)
-    }
-
+    @bind
     addArgument(argument: ArgumentType) {
         this.args.push(argument)
     }
