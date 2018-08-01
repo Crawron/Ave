@@ -1,7 +1,5 @@
-import { Message, Client, User } from "discord.js"
-import { Command, requiresRoles } from "../../main"
-
-const serverAdminRoleId = "421565847815979018"
+import { Message, Client } from "discord.js"
+import { Command, CommandArguments } from "../../main"
 
 export default class extends Command {
     constructor(client: Client) {
@@ -11,8 +9,8 @@ export default class extends Command {
         })
     }
 
-    @requiresRoles([serverAdminRoleId])
-    async run(msg: Message) {
-        return msg.channel.send(`Hello, ${msg.author}!`)
+    async run(msg: Message, { members }: CommandArguments) {
+        if (members.length > 0) return msg.channel.send(`Hello, ${members.pop()}!`)
+        return msg.channel.send(`Hello, ${msg.member}!`)
     }
 }
