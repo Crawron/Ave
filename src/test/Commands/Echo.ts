@@ -15,9 +15,13 @@ export default class extends Command {
         const roleNames = args.roles.length > 0 ? args.roles.map((role) => `${role.name} (ID: ${role.id})`).join("\n") : "<none>"
         const numbers = args.numbers.length > 0 ? args.numbers.join("\n") : "<none>"
         const strings = args.strings.length > 0 ? args.strings.map((str) => `"${str}"`).join("\n") : "<none>"
+        const argsString = args.args.join(", ")
 
         msg.channel.send(
             `\`\`\`js
+Argument array:
+[${argsString}]
+
 Members:
 ${memberNames}
 
