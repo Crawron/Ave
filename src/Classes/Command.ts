@@ -1,5 +1,6 @@
 import { Message, Client, PermissionResolvable } from "discord.js"
-import { CommandOptions } from "../Interfaces/CommandOptions"
+import { CommandOptions } from "../Interfaces/Options"
+import { CommandArguments } from "./CommandArguments"
 
 export abstract class Command {
     name: string
@@ -14,5 +15,5 @@ export abstract class Command {
         this.syntax = options.syntax
     }
 
-    abstract run(msg: Message, ...args: any[]): Promise<any>
+    abstract run(msg: Message, args: CommandArguments): Promise<any>
 }

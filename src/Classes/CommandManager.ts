@@ -1,6 +1,9 @@
 import { CommandStorage } from "./CommandStorage"
 import { Client, Message } from "discord.js"
 import { CommandError } from "./CommandError"
+import { CommandManagerOptions } from "../Interfaces/Options"
+import { Command } from "./Command"
+import { CommandArguments } from "../main"
 
 export class CommandManager {
     storage: CommandStorage
@@ -15,18 +18,22 @@ export class CommandManager {
 
         this.handleMessage = this.handleMessage.bind(this)
         this.shouldHandleMessage = this.shouldHandleMessage.bind(this)
+
+        this.client.on("message", this.handleMessage)
     }
 
     /** Handles an incoming message and runs a command if found. */
-    handleMessage(msg: Message) {
+    async handleMessage(msg: Message) {
         if (!this.shouldHandleMessage(msg)) return
 
         const command = this.getCommandFromMessage(msg)
         if (command) {
             try {
-                command.run(msg)
+                const args = await this.parseArguments(msg, command)
+                command.run(msg, args)
             } catch (e) {
                 if (e instanceof CommandError) msg.channel.send(e.message)
+                else console.log(e)
             }
         }
     }
@@ -46,9 +53,34 @@ export class CommandManager {
         const commandName = msg.content.replace(this.prefix, "").split(" ")[0]
         return this.storage.findCommand(commandName)
     }
-}
 
-interface CommandManagerOptions {
-    prefix?: string
-    respondMentions?: boolean
+    async parseArguments(msg: Message, command: Command): Promise<CommandArguments> {
+        const argumentsString = msg.content.replace(this.prefix + command.name, "").replace(/^<@${this.client.user.id}>/, "")
+
+        const args = new CommandArguments()
+
+        const regexp = /<(?:@&?|#)\d+>|(\d+(?:[.,]\d+)?)|"([^"]*)"|(\S+)/g
+
+        let match: RegExpExecArray | null
+        while ((match = regexp.exec(argumentsString))) {
+            const numberArg = match[1]
+            if (numberArg) {
+                const number = parseFloat(numberArg.replace(/,/g, "."))
+                if (number) args.addArgument(number)
+                else args.addArgument(numberArg)
+            }
+
+            const quotedString = match[2]
+            if (quotedString) args.addArgument(quotedString)
+
+            const stringArg = match[3]
+            if (stringArg) args.addArgument(stringArg)
+        }
+
+        msg.mentions.channels.forEach(args.addArgument)
+        msg.mentions.roles.forEach(args.addArgument)
+        msg.mentions.members.forEach(args.addArgument)
+
+        return args
+    }
 }
