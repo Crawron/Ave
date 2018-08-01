@@ -1,5 +1,5 @@
-import { Command } from "./Command"
 import { Client } from "discord.js"
+import { Command } from "./Command"
 
 export class CommandStorage {
     commands = new Array<Command>()

@@ -1,4 +1,4 @@
-import { Message, Client, PermissionResolvable } from "discord.js"
+import { Message, Client } from "discord.js"
 import { CommandOptions } from "../Interfaces/Options"
 import { CommandArguments } from "./CommandArguments"
 

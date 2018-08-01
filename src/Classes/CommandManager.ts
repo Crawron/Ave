@@ -1,9 +1,9 @@
-import { CommandStorage } from "./CommandStorage"
 import { Client, Message } from "discord.js"
-import { CommandError } from "./CommandError"
-import { CommandManagerOptions } from "../Interfaces/Options"
 import { Command } from "./Command"
-import { CommandArguments } from "../main"
+import { CommandStorage } from "./CommandStorage"
+import { CommandError } from "./CommandError"
+import { CommandArguments } from "./CommandArguments"
+import { CommandManagerOptions } from "../Interfaces/Options"
 
 export class CommandManager {
     storage: CommandStorage

@@ -1,5 +1,5 @@
-import { Command } from "./Command"
 import { Message } from "discord.js"
+import { Command } from "./Command"
 
 export class CommandError extends Error {
     command: Command
