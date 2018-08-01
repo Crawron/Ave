@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "Discord bot library using discord.js. Inspired by Commando.",
     "main": "dist/main.js",
+    "repository": "github:Crawron/Ave",
     "author": "Crawron",
     "license": "MIT",
     "scripts": {
