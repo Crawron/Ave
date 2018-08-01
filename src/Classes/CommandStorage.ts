@@ -1,4 +1,8 @@
 import { Client } from "discord.js"
+import { bind } from "decko"
+import { sync } from "globby"
+import { join } from "path"
+
 import { Command } from "./Command"
 
 export class CommandStorage {
@@ -8,6 +12,15 @@ export class CommandStorage {
         private client: Client, //
     ) {}
 
+    fetchCommandFolder(folderPath: string) {
+        folderPath = join(folderPath, "*.js")
+
+        const commandPaths = sync(folderPath)
+
+        commandPaths.forEach(this.fetchCommand)
+    }
+
+    @bind
     fetchCommand(path: string) {
         const CommandClass = require(path).default.prototype.constructor
         const command: Command = new CommandClass(this.client)
