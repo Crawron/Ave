@@ -1,24 +1,9 @@
-import { Command } from "./Classes/Command"
-import { CommandArguments } from "./Classes/CommandArguments"
-import { CommandError } from "./Classes/CommandError"
-import { CommandManager } from "./Classes/CommandManager"
-import { CommandStorage } from "./Classes/CommandStorage"
+export * from "./Classes/Command"
+export * from "./Classes/CommandArguments"
+export * from "./Classes/CommandError"
+export * from "./Classes/CommandManager"
+export * from "./Classes/CommandStorage"
 
-import { requiresPermissions, requiresRoles } from "./Decorators/Decorators"
+export * from "./Decorators/Decorators"
 
-import { CommandManagerOptions, CommandOptions } from "./Interfaces/Options"
-
-export {
-    // Classes
-    Command,
-    CommandArguments,
-    CommandError,
-    CommandManager,
-    CommandStorage,
-    // Decorators
-    requiresPermissions,
-    requiresRoles,
-    // Interfaces
-    CommandManagerOptions,
-    CommandOptions,
-}
+export * from "./Interfaces/Options"
