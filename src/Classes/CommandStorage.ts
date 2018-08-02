@@ -21,7 +21,7 @@ export class CommandStorage {
      * @param {string} folderPath Direct path to the commands directory.
      */
     fetchCommandFolder(folderPath: string) {
-        folderPath = join(folderPath, "*.js")
+        folderPath = join(folderPath, "**/*.(js|ts)")
 
         const commandPaths = sync(folderPath)
 
