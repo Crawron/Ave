@@ -72,28 +72,38 @@ export class CommandManager {
     async parseArguments(msg: Message, command: Command): Promise<CommandArguments> {
         const args = new CommandArguments()
 
-        const regexp = /(?:@everyone)|<(?:@&?|#)\d+>|(\d+(?:[.,]\d+)?)|"([^"]*)"|(\S+)/g
+        const regexp = /(?:@everyone)|<(@&?|#)(\d+)>|(\d+(?:[.,]\d+)?)|"([^"]*)"|(\S+)/g
         const argumentsString = msg.content.replace(this.prefix + command.name, "").replace(/^<@${this.client.user.id}>/, "")
 
         let match: RegExpExecArray | null
         while ((match = regexp.exec(argumentsString))) {
-            const numberArg = match[1]
+            const mentionType = match[1]
+            if (mentionType) {
+                const mentionId = match[2]
+                const mentionMap: any = {
+                    "@": msg.mentions.members.get(mentionId),
+                    "@&": msg.mentions.roles.get(mentionId),
+                    "#": msg.mentions.channels.get(mentionId),
+                }
+
+                const mention = mentionMap[mentionType]
+                if (mention) args.addArgument(mention)
+                else args.addArgument(match[0])
+            }
+
+            const numberArg = match[3]
             if (numberArg) {
                 const number = parseFloat(numberArg.replace(/,/g, "."))
                 if (number) args.addArgument(number)
                 else args.addArgument(numberArg)
             }
 
-            const quotedStringArg = match[2]
+            const quotedStringArg = match[4]
             if (quotedStringArg) args.addArgument(quotedStringArg)
 
-            const stringArg = match[3]
+            const stringArg = match[5]
             if (stringArg) args.addArgument(stringArg)
         }
-
-        msg.mentions.channels.forEach(args.addArgument)
-        msg.mentions.roles.forEach(args.addArgument)
-        msg.mentions.members.forEach(args.addArgument)
 
         return args
     }
