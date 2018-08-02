@@ -18,14 +18,17 @@ export class CommandStorage {
     /**
      * Gets all command files from a directory and it's subdirectories
      * and adds them to the command storage.
-     * @param {string} folderPath Direct path to the commands directory.
+     * @param {(string|string[])} folderPath Direct path or multiple paths to the commands directory.
      */
-    fetchCommandFolder(folderPath: string) {
-        folderPath = join(folderPath, "**/*.(js|ts)")
+    @bind
+    fetchCommandFolder(folderPath: string | string[]) {
+        if (folderPath instanceof Array) folderPath.forEach(this.fetchCommandFolder)
+        else {
+            folderPath = join(folderPath, "**/*.(js|ts)")
 
-        const commandPaths = sync(folderPath)
-
-        commandPaths.forEach(this.fetchCommand)
+            const commandPaths = sync(folderPath)
+            commandPaths.forEach(this.fetchCommand)
+        }
     }
 
     /**
