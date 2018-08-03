@@ -7,7 +7,7 @@ const client = new Client()
 
 const manager = new CommandManager(client, { prefix: "." })
 const commandsFolderPath = join(__dirname, "/Commands")
-manager.storage.fetchCommandFolder(commandsFolderPath)
+manager.storage.fetchFolder(commandsFolderPath)
 
 const { token } = require("../../token.json")
 client.login(token)
