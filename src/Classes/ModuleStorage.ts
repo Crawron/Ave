@@ -31,14 +31,17 @@ export class ModuleStorage<T extends Module> {
 
     /**
      * Gets a single command file and adds it to the command storage.
-     * @param {string} path Direct path to the command file.
+     * @param {string | string[]} path Direct path to the command file.
      */
     @bind
-    fetchModule(path: string) {
-        const CommandClass = require(path).default.prototype.constructor
-        const command: T = new CommandClass(this.client)
+    fetchModule(path: string | string[]) {
+        if (path instanceof Array) path.forEach(this.fetchModule)
+        else {
+            const CommandClass = require(path).default.prototype.constructor
+            const command: T = new CommandClass(this.client)
 
-        this.load(command)
+            this.load(command)
+        }
     }
 
     /**
