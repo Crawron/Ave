@@ -4,7 +4,7 @@ import { sync } from "globby"
 import { join } from "path"
 
 /**
- * It stores the command instances to be used.
+ * It stores the module instances to be used.
  */
 export class ModuleStorage<T extends Module> {
     storage = new Array<T>()
@@ -24,41 +24,41 @@ export class ModuleStorage<T extends Module> {
         else {
             folderPath = join(folderPath, "**/*.(js|ts)")
 
-            const commandPaths = sync(folderPath)
-            commandPaths.forEach(this.fetchModule)
+            const modulePaths = sync(folderPath)
+            modulePaths.forEach(this.fetchModule)
         }
     }
 
     /**
-     * Gets a single command file and adds it to the command storage.
-     * @param {string | string[]} path Direct path to the command file.
+     * Gets a single module file and adds it to the module storage.
+     * @param {string | string[]} path Direct path to the module file.
      */
     @bind
     fetchModule(path: string | string[]) {
         if (path instanceof Array) path.forEach(this.fetchModule)
         else {
             const ModuleConstructor = require(path).default.prototype.constructor
-            const command: T = new ModuleConstructor(this.client)
+            const module: T = new ModuleConstructor(this.client)
 
-            this.load(command)
+            this.load(module)
         }
     }
 
     /**
-     * Adds a Command object to the command storage.
-     * @param {T} module A Command instance.
+     * Adds a Module object to the module storage.
+     * @param {T} module A Module instance.
      */
     load(module: T) {
-        const commandExists = this.find(module.name)
-        if (commandExists) throw new Error(`Module ${module.name} already loaded.`)
+        const moduleExists = this.find(module.name)
+        if (moduleExists) throw new Error(`Module ${module.name} already loaded.`)
 
         this.storage.push(module)
     }
 
     /**
-     * Finds a command in storage by it's name.
-     * @param {string} moduleName The name of the comamnd.
-     * @returns {(T|undefined)} A command object if found, undefined otherwise.
+     * Finds a module in storage by it's name.
+     * @param {string} moduleName The name of the module.
+     * @returns {(T|undefined)} A module object if found, undefined otherwise.
      */
     find(moduleName: string) {
         return this.storage.find((module) => module.name === moduleName)
