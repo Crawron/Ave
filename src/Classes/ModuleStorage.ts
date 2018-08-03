@@ -37,8 +37,8 @@ export class ModuleStorage<T extends Module> {
     fetchModule(path: string | string[]) {
         if (path instanceof Array) path.forEach(this.fetchModule)
         else {
-            const CommandClass = require(path).default.prototype.constructor
-            const command: T = new CommandClass(this.client)
+            const ModuleConstructor = require(path).default.prototype.constructor
+            const command: T = new ModuleConstructor(this.client)
 
             this.load(command)
         }
@@ -50,7 +50,7 @@ export class ModuleStorage<T extends Module> {
      */
     load(module: T) {
         const commandExists = this.find(module.name)
-        if (commandExists) throw new Error(`Command ${module.name}`)
+        if (commandExists) throw new Error(`Module ${module.name} already loaded.`)
 
         this.storage.push(module)
     }
