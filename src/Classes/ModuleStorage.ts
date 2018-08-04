@@ -16,7 +16,7 @@ export class ModuleStorage<T extends Module> {
     /**
      * Gets all module files from a directory and it's subdirectories
      * and adds them to the module storage.
-     * @param {(string|string[])} folderPath Direct path or multiple paths to the modules directory.
+     * @param {(string | string[])} folderPath Direct path or multiple paths to the modules directory.
      */
     @bind
     fetchFolder(folderPath: string | string[]) {
@@ -58,7 +58,7 @@ export class ModuleStorage<T extends Module> {
     /**
      * Finds a module in storage by it's name.
      * @param {string} moduleName The name of the module.
-     * @returns {(T|undefined)} A module object if found, undefined otherwise.
+     * @returns {(T | undefined)} A module object if found, undefined otherwise.
      */
     find(moduleName: string) {
         return this.storage.find((module) => module.name === moduleName)
