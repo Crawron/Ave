@@ -9,9 +9,7 @@ import { join } from "path"
 export class ModuleStorage<T extends Module> {
     storage = new Array<T>()
 
-    constructor(
-        private client: Client, //
-    ) {}
+    constructor(private client: Client) {}
 
     /**
      * Gets all module files from a directory and it's subdirectories
