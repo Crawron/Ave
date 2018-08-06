@@ -1,18 +1,18 @@
 import { Client, Message } from "discord.js"
 import { Command } from "./Command"
-import { CommandStorage } from "./CommandStorage"
 import { CommandError } from "./CommandError"
 import { CommandArguments } from "./CommandArguments"
 import { CommandManagerOptions } from "../Interfaces/Options"
 import { bind } from "decko"
+import { ModuleStorage } from "./ModuleStorage"
 
 export class CommandManager {
-    storage: CommandStorage
+    storage: ModuleStorage<Command>
     prefix: string
     respondMentions: boolean
 
     constructor(public client: Client, options: CommandManagerOptions = {}) {
-        this.storage = new CommandStorage(client)
+        this.storage = new ModuleStorage<Command>(client)
 
         this.prefix = options.prefix || "."
         this.respondMentions = options.respondMentions || true
@@ -60,7 +60,7 @@ export class CommandManager {
      */
     getCommandFromMessage(msg: Message) {
         const commandName = msg.content.replace(this.prefix, "").split(" ")[0]
-        return this.storage.findCommand(commandName)
+        return this.storage.find(commandName)
     }
 
     /**

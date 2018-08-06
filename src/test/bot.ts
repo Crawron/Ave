@@ -1,13 +1,13 @@
-import { Client } from "discord.js"
 import { join } from "path"
+import { AveClient } from "../main"
 
-import { CommandManager } from "../main"
-
-const client = new Client()
-
-const manager = new CommandManager(client, { prefix: "." })
-const commandsFolderPath = join(__dirname, "/Commands")
-manager.storage.fetchCommandFolder(commandsFolderPath)
-
+const commandDirectory = join(__dirname, "/Commands")
 const { token } = require("../../token.json")
-client.login(token)
+
+const ave = new AveClient(token, {
+    ownerId: "109677308410875904",
+    commandDirectory,
+    prefix: ".",
+})
+
+ave.login()
