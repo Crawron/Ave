@@ -17,13 +17,11 @@
     "dependencies": {
         "discord.js": "^11.3.2",
         "globby": "^8.0.1",
-        "knex": "^0.15.2",
-        "sqlite3": "^4.0.2"
+        "decko": "^1.2.0"
     },
     "devDependencies": {
         "@types/globby": "^8.0.0",
         "@types/node": "^10.5.4",
-        "decko": "^1.2.0",
         "ts-node": "^7.0.0",
         "typescript": "^3.0.1"
     }
