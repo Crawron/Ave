@@ -1,7 +1,8 @@
 import { join } from "path"
 import { AveClient } from "../src"
 
-const { token } = require("../../token.json")
+const tokenPath = join(__dirname, "token.json")
+const { token } = require(tokenPath)
 const ave = new AveClient(token, {
     ownerId: "109677308410875904",
     prefix: ".",
