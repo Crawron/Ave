@@ -1,5 +1,5 @@
 import { Message, Client } from "discord.js"
-import { Command, CommandArguments } from "../../main"
+import { Command, CommandArguments } from "../.."
 
 export default class extends Command {
     constructor(client: Client) {

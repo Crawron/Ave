@@ -1,5 +1,4 @@
 import { Client } from "discord.js"
-import { join } from "path"
 
 import { CommandManagerOptions } from "../Interfaces/Options"
 import { CommandManager } from "./CommandManager"
@@ -19,10 +18,6 @@ export class AveClient {
         })
 
         this.comamndManager = new CommandManager(this.client, options)
-
-        const commandsFolderPath = options.commandDirectory || join(__dirname, "/Commands")
-        this.comamndManager.storage.fetchFolder(commandsFolderPath)
-        if (options.commandPath) this.comamndManager.storage.fetchModule(options.commandPath)
     }
 
     get owner() {
@@ -36,6 +31,4 @@ export class AveClient {
 
 type ClientOptions = CommandManagerOptions & {
     ownerId?: string
-    commandDirectory?: string | string[]
-    commandPath?: string | string[]
 }
