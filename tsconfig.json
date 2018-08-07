@@ -7,7 +7,7 @@
         "strict": true,
         "sourceMap": true,
         "declaration": true,
-        "declarationDir": "./dist/Declarations",
+        "declarationDir": "./dist/typings",
         "noImplicitAny": true,
         "experimentalDecorators": true,
         "skipLibCheck": true
