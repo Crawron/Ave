@@ -1,5 +1,5 @@
 {
-    "name": "ave",
+    "name": "@crawron/ave",
     "version": "1.0.0",
     "description": "Discord bot library using discord.js. Inspired by Commando.",
     "main": "dist/index",
@@ -7,12 +7,18 @@
     "repository": "github:Crawron/Ave",
     "author": "Crawron",
     "license": "MIT",
+    "private": false,
+    "keywords": [
+        "discord",
+        "bot",
+        "library"
+    ],
     "scripts": {
         "test": "ts-node test/bot.ts",
         "prepublishOnly": "npm run compile",
-        "compile": "npm run clean && tsc -p .",
-        "watch": "tsc -w -p .",
-        "clean": "rm -rf dist"
+        "compile": "npm run clean && tsc",
+        "watch": "tsc -w -p",
+        "clean": "rmdir dist /s"
     },
     "dependencies": {
         "discord.js": "^11.3.2",
@@ -24,5 +30,8 @@
         "@types/node": "^10.5.4",
         "ts-node": "^7.0.0",
         "typescript": "^3.0.1"
-    }
+    },
+    "files": [
+        "dist/*"
+    ]
 }
