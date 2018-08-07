@@ -1,13 +1,13 @@
 import { join } from "path"
-import { AveClient } from "../main"
+import { AveClient } from ".."
 
-const commandDirectory = join(__dirname, "/Commands")
 const { token } = require("../../token.json")
-
 const ave = new AveClient(token, {
     ownerId: "109677308410875904",
-    commandDirectory,
     prefix: ".",
 })
+
+const commandDirectory = join(__dirname, "/Commands")
+ave.comamndManager.storage.fetchFolder(commandDirectory)
 
 ave.login()
