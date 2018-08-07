@@ -1,5 +1,5 @@
 import { join } from "path"
-import { AveClient } from ".."
+import { AveClient } from "../src"
 
 const { token } = require("../../token.json")
 const ave = new AveClient(token, {
